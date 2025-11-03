@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Alireza</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap JS Bundle (includes Popper) -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> -->
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Times New Roman', serif;
+    }
+    footer a {
+      color: #c5c3c3;
+      text-decoration: none;
+    }
+    footer a:hover {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="bg-primary text-white text-center py-4 shadow-sm">
+    <h1 class="display-5 mb-0">Alireza's Web Page</h1>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container">
+      <a class="navbar-brand" href="#">Alireza</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">News</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Sidebar</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="container my-4">
+    <div class="row g-4">
+      <!-- Sidebar -->
+      <aside class="col-md-3">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h4 class="card-title">Sidebar</h4>
+            <p>Rate my site!</p>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating" id="good">
+              <label class="form-check-label" for="good">Good</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating" id="medium">
+              <label class="form-check-label" for="medium">Medium</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rating" id="bad">
+              <label class="form-check-label" for="bad">Bad</label>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Content -->
+      <main class="col-md-6">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h2 class="text-center mb-4">Personal Data Form</h2>
+
+            <form id="personalForm" novalidate>
+              <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" name="name" required>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Last Name</label>
+                <input type="text" class="form-control" name="phone" required>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Phone</label>
+                <input type="text" class="form-control" name="phone" required>
+              </div>
+
+              <div id="addressContainer">
+                <div class="border rounded p-3 mb-3 address-group">
+                  <label class="form-label">Country</label>
+                  <select class="form-select country" required>
+                    <option value="">Select country</option>
+                    <option value="USA">USA</option>
+                    <option value="Canada">Canada</option>
+                    <option value="India">India</option>
+                    <option value="Iran">Iran</option>
+                  </select>
+
+                  <label class="form-label mt-2">City</label>
+                  <select class="form-select city" disabled required>
+                    <option value="">Select city</option>
+                  </select>
+
+                  <label class="form-label mt-2">Address</label>
+                  <input type="text" class="form-control address" placeholder="Street..." disabled required>
+
+                  <button type="button" class="btn btn-danger btn-sm mt-3 deleteAddress">
+                    Delete previous address
+                  </button>
+                </div>
+              </div>
+
+              <button type="button" id="addAddress" class="btn btn-secondary mt-2">+ Add another address</button>
+              <button type="submit" class="btn btn-primary mt-2">Send Data</button>
+            </form>
+          </div>
+        </div>
+      </main>
+
+      <!-- News -->
+      <aside class="col-md-3">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h4 class="card-title">News Section</h4>
+            <p>Latest updates go here...</p>
+            <ol class="ps-3">
+              <li><a href="https://www.wsj.com/" target="_blank">Wall Street Journal</a></li>
+              <li><a href="https://www.washingtonpost.com/" target="_blank">Washington Post</a></li>
+              <li><a href="https://www.theguardian.com" target="_blank">The Guardian</a></li>
+            </ol>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-3 mt-4">
+    <div class="container">
+      <p class="mb-1">Author: Alireza Poursoleymani</p>
+      <a href="mailto:alireza@domain.com">alireza@domain.com</a>
+    </div>
+  </footer>
+
+  <!-- JavaScript Logic -->
+  <script>
+    // Country-to-city mapping
+    const cities = {
+      "USA": ["New York", "Los Angeles", "Chicago"],
+      "Canada": ["Toronto", "Vancouver", "Montreal"],
+      "India": ["Delhi", "Mumbai", "Bangalore"],
+      "Iran": ["Tehran", "Urmia", "Mashhad", "Tabriz"]
+    };
+
+    // Helper function to create new address group
+    function createAddressGroup() {
+      const template = document.querySelector('.address-group');
+      const clone = template.cloneNode(true);
+      clone.querySelectorAll('select, input').forEach(el => {
+        el.value = '';
+        if (el.classList.contains('city') || el.classList.contains('address')) {
+          el.disabled = true;
+        }
+      });
+      return clone;
+    }
+
+    // Event delegation for dynamic elements
+    document.addEventListener('change', (e) => {
+      if (e.target.classList.contains('country')) {
+        const country = e.target.value;
+        const group = e.target.closest('.address-group');
+        const citySelect = group.querySelector('.city');
+        const addressInput = group.querySelector('.address');
+
+        citySelect.innerHTML = '<option value="">Select city</option>';
+        addressInput.value = '';
+        addressInput.disabled = true;
+
+        if (cities[country]) {
+          cities[country].forEach(city => {
+            const opt = document.createElement('option');
+            opt.value = city;
+            opt.textContent = city;
+            citySelect.appendChild(opt);
+          });
+          citySelect.disabled = false;
+        } else {
+          citySelect.disabled = true;
+        }
+      }
+
+      if (e.target.classList.contains('city')) {
+        const group = e.target.closest('.address-group');
+        const addressInput = group.querySelector('.address');
+        addressInput.disabled = !e.target.value;
+      }
+    });
+
+    // Add new address group
+    document.getElementById('addAddress').addEventListener('click', () => {
+      const newAddress = createAddressGroup();
+      document.getElementById('addressContainer').appendChild(newAddress);
+    });
+
+    // Delete address group
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('deleteAddress')) {
+        const groups = document.querySelectorAll('.address-group');
+        if (groups.length > 1) {
+          e.target.closest('.address-group').remove();
+        } else {
+          alert('You must keep at least one address.');
+        }
+      }
+    });
+
+    // Form submit
+    document.getElementById('personalForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Form submitted successfully!');
+    });
+  </script>
+
+</body>
+</html>
