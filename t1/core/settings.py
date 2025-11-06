@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-pbsv#-f8ed(b=85g&k644m50g=o9x@2o^d-1o$+k)(5(r1buzy
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '0.0.0.0'
+    ]
 
 
 # Application definition
@@ -37,9 +41,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'corsheaders',
     'polls.apps.PollsConfig',
     'news.apps.NewsConfig',
 ]
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -49,9 +57,26 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # React dev server
+    "http://127.0.0.1:3000",
+    "http://localhost:8080",  # Vue dev server
+    "https://yourdomain.com",  # Your production frontend
+    "https://www.yourdomain.com",
+    "http://127.0.0.1:80",
+    "http://127.0.0.1:443",
+    "http://127.0.0.1:5500",
+    f"http://127.0.0.1:8000",# Your server
+    f"https://127.0.0.1:8000",
 ]
 
+DEBUG=True
 ROOT_URLCONF = 'core.urls'
+
+CORS_ALLOW_CREDENTIALS= True
 
 TEMPLATES = [
     {

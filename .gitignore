@@ -1,1 +1,82 @@
+# ==========================
+# 🐍 PYTHON / DJANGO
+# ==========================
+
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Django / SQLite database
+t1/db.sqlite3
+
+# Media (uploaded files)
+t1/media/
+
+# Logs and backups
+*.log
+*.bak
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Local settings / secrets
+.env
+*.env
+settings_local.py
+
+# Django collected static files (generated, not source)
+t1/staticfiles/
+t1/static/
+
+# ==========================
+# 🧩 FRONTEND (Vue, HTML)
+# ==========================
+
+# Node dependencies
+frontend/vue/node_modules/
+
+# Build outputs
+frontend/vue/dist/
+frontend/vue/.vite/
+frontend/vue/.nuxt/
+frontend/vue/.cache/
+
+# Environment / local files
+frontend/vue/.env
+frontend/vue/.env.local
+frontend/vue/.env.*.local
+
+# ==========================
+# 💻 EDITOR / OS FILES
+# ==========================
+
+# VS Code
 .vscode/
+
+# PyCharm / IntelliJ
+.idea/
+
+# macOS and Windows system files
+.DS_Store
+Thumbs.db
+
+# ==========================
+# 📦 DEPENDENCY FILES
+# ==========================
+
+# Optional: Lock files (only ignore if you don't want to track)
+# frontend/vue/package-lock.json
+# frontend/vue/yarn.lock
+
+# ==========================
+# 🧪 MISC
+# ==========================
+
+# Test or temp files
+*.tmp
+*.swp
+test.py
