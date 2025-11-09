@@ -27,6 +27,57 @@
       color: red;
       font-weight: bold;
     }
+    /* News vertical carousel styles */
+    .news-carousel {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .news-carousel .viewport {
+      overflow: hidden;
+      width: 100%;
+      height: 320px; /* adjust as needed */
+      border-radius: 6px;
+      background: #fff;
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.03) inset;
+    }
+    /* show slides horizontally */
+    .news-carousel .inner {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      transition: transform 0.45s ease;
+    }
+    .news-carousel .slide {
+      min-width: 100%;
+      height: 320px;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+    }
+    .news-carousel .slide img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+    .news-carousel .slide-body {
+      padding: 0.5rem 0.75rem;
+      overflow: auto;
+      flex: 1 1 auto;
+    }
+    .news-carousel .nav-btn {
+      width: 40px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      border: 1px solid rgba(0,0,0,0.08);
+      background: #ffffffcc;
+      cursor: pointer;
+    }
+    .news-carousel .nav-btn:active { transform: translateY(1px); }
   </style>
 </head>
 <body>
@@ -135,25 +186,38 @@
       </main>
 
       <!-- News -->
-      <aside class="col-md-3" id="news-section">
-        <div id="app">
-          <div class="card shadow-sm">
-            <div class="card-body">
-              <h4 class="card-title">News Section</h4>
-              <div v-if="news.length === 0">
-                <p>Loading latest updates...</p>
-              </div>
-              <div v-else>
-                <div v-for="item in news" :key="item.id" class="mb-3 border-bottom pb-2">
-                  <h5>{{ item.title }}</h5>
-                  <img :src="item.picture" alt="News image" class="img-fluid rounded mb-2" />
-                  <p class="small text-muted">{{ item.data_time }}</p>
-                  <p>{{ item.data }}</p>
-                </div>
-              </div>
-            </div>
+      <aside class="col-md-4" id="news-section">
+        
+          <div id="app">
+                  <div class="card shadow-sm">
+                    <div class="card-body">
+                      <h4 class="card-title">News Section</h4>
+                      <div v-if="news.length === 0">
+                        <p>Loading latest updates...</p>
+                      </div>
+                      <div v-else>
+                        <div class="news-carousel">
+                          <button class="nav-btn" @click="prevNews" aria-label="previous">◀</button>
+
+                          <div class="viewport">
+                            <div class="inner" :style="{ transform: 'translateX(' + (-currentIndex * 100) + '%)' }">
+                              <div class="slide" v-for="item in news" :key="item.id">
+                                <img :src="item.picture" :alt="item.title || 'news image'" />
+                                <div class="slide-body">
+                                  <h5 class="mb-1">{{ item.title }}</h5>
+                                  <p class="small text-muted mb-1">{{ item.data_time }}</p>
+                                  <p class="mb-0">{{ item.data }}</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <button class="nav-btn" @click="nextNews" aria-label="next">▶</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
           </div>
-        </div>
       </aside>
     </div>
   </div>
@@ -170,12 +234,31 @@
   <script>
   const app = Vue.createApp({
     data() {
-      return { news: [] }
+      return {
+        news: [],
+        currentIndex: 0
+      }
+    },
+    methods: {
+      prevNews() {
+        if (!this.news.length) return;
+        this.currentIndex = (this.currentIndex - 1 + this.news.length) % this.news.length;
+      },
+      nextNews() {
+        if (!this.news.length) return;
+        this.currentIndex = (this.currentIndex + 1) % this.news.length;
+      }
     },
     mounted() {
       fetch('http://127.0.0.1:8000/api/news/')
         .then(res => res.json())
-        .then(data => this.news = data);
+        .then(data => {
+          this.news = data;
+          this.currentIndex = 0;
+        })
+        .catch(err => {
+          console.error('Failed to load news', err);
+        });
     }
   });
   app.mount('#app');
