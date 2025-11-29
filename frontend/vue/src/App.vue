@@ -1,6 +1,6 @@
-<script setup>
+<!-- <script setup>
 import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import TheWelcome from './components/BookDetail.vue'
 </script>
 
 <template>
@@ -44,4 +44,23 @@ header {
     flex-wrap: wrap;
   }
 }
+</style> -->
+<!-- src/App.vue -->
+<script setup>
+</script>
+
+<template>
+  <div class="min-h-screen bg-gray-100 text-gray-900">
+    <header class="bg-white shadow p-4">
+      <h1 class="text-2xl font-bold">📚 Book Management System</h1>
+    </header>
+
+    <main class="p-6">
+      <!-- Vue router will render pages here -->
+      <router-view />
+    </main>
+  </div>
+</template>
+
+<style scoped>
 </style>

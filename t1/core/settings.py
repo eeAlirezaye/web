@@ -63,15 +63,17 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # React dev server
     "http://127.0.0.1:3000",
-    "http://localhost:8080",  # Vue dev server
+    "http://localhost:5173",  # Vue dev server
+    "http://127.0.0.1:5173",  # Vue dev server
     "https://yourdomain.com",  # Your production frontend
     "https://www.yourdomain.com",
     "http://127.0.0.1:80",
     "http://127.0.0.1:443",
     "http://127.0.0.1:5500",
+    # "http://127.0.0.1:8000/api/"
     f"http://127.0.0.1:8000",# Your server
     f"https://127.0.0.1:8000",
-]
+]   
 
 DEBUG=True
 ROOT_URLCONF = 'core.urls'
